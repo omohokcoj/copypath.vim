@@ -72,6 +72,14 @@ function CopyPath()
     endif
 endfunction
 
+function CopyRelativePath()
+    let @*=expand('%')
+    " copy unnamed register.
+    if g:copypath_copy_to_unnamed_register
+        let @"=expand('%')
+    endif
+endfunction
+
 function CopyFileName()
     let @*=expand('%:t')
     " copy unnamed register.
@@ -80,8 +88,18 @@ function CopyFileName()
     endif
 endfunction
 
+function CopyDirectory()
+    let @*=expand('%:p:h')
+    " copy unnamed register.
+    if g:copypath_copy_to_unnamed_register
+        let @"=expand('%:p:h')
+    endif
+endfunction
+
 command! -nargs=0 CopyPath     call CopyPath()
 command! -nargs=0 CopyFileName call CopyFileName()
+command! -nargs=0 CopyRelativePath call CopyRelativePath()
+command! -nargs=0 CopyDirectory    call CopyDirectory()
 
 finish
 
